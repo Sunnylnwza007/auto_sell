@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="/pic/IMG_1997.PNG" type="image/x-icon" />
+  <script src="/script/product.js"></script>
+  <link rel="stylesheet" href="/mainStyle.css">
+  <title>จัดการข้อมูลสินค้า</title>
+  
+</head>
+
+<body class="bg">
+  <section>
+    <div class="head">
+
+      <div class="inLine absoluteRight">
+          
+      </div>
+      <div class="">
+        <br />
+        <figure class="img150 imgHead inLine">
+          <img src="/pic/IMG_1997.PNG" class="img150 imgHead inLine">
+        </figure>
+        <h1 class="inLine">จัดการข้อมูลสินค้า</h1>
+      </div>
+    </div>
+  </section>
+  <br><br>
+
+  <section>
+    <div>
+      
+      <input type="" id="search" name="product" placeholder="ค้นหาสินค้า" maxlength="30" class="inputTextSearch" style="width:90%;"/>
+    
+      <button class="button green" style="width:8%" id="inputBt" onclick="find()">ค้นหา</button>
+    
+      
+      <br>
+      <br>
+
+      <table class="tableData">
+        <tr>
+          <th>ลำดับ</th>
+          <th>ยี่ห้อ</th>
+          <th>รุ่นรถ</th>
+          <th>ซีรีย์</th>
+          <th>จำนวนคงเหลือ</th>
+          <th>ราคา</th>
+        </tr>
+        <% for(var i=0; i < data.length; i++) { %>
+
+          <tr id="t01" onclick="showDetail(
+            '<%= data[i].id %>',
+            '<%= data[i].brand %>',
+            '<%= data[i].carModel %>',
+            '<%= data[i].serie %>',
+            '<%= data[i].amount %>',
+            '<%= data[i].price %>',
+          )">
+                  <td id="t01" name="tId"><%= data[i].id %></td>
+                  <td id="t01" name="tBrand" style="color:blue;"><a onclick="showDetail()"><%= data[i].brand %></a></td>
+                  <td id="t01" name="tCarmodel"><%= data[i].carModel %></td>
+                  <td id="t01" name="tserie"><%= data[i].serie %></td>
+                  <td id="t01" name="tamount"><%= data[i].amount %></td>
+                  <td id="t01" name="tprice"><%= data[i].price %></td>
+          </tr>
+      <% } %>
+
+      </table>
+    </div>
+  </section>
+
+  <br>
+  <br>
+  <section>
+    <h2 style="text-decoration: underline">ข้อมูลสินค้า</h2>
+
+    <div class="inLine">
+      <figure class="imgProduct">
+        <img src="/pic/480x480.png" id="img" style="width: 300px; height: 400px;">
+      </figure>
+    </div>
+    <!-- <form action="productInformation/addData" method="POST"> -->
+    <div style="display: inline-block; width: 75%;">
+      <label>ยี่ห้อ :</label>
+      <input type="" id="inputBrand" name="brand" class="inputData" maxlength="30" style="width: 100%;">
+      <br>
+      <label>รุ่นรถ :</label>
+      <input type="" id="inputModel" name="model" class="inputData" maxlength="30" style="width: 100%;">
+      <br>
+      <label>ซีรีย์รถ :</label>
+      <input type="" id="inputSeries" name="series" class="inputData" maxlength="30" style="width: 100%;">
+      <br>
+      <label>จำนวนคงเหลือ :</label>
+      <input type="" onkeypress="return isNumberKey(event)" id="inputTotal" name="total"  class="inputData" maxlength="30" style="width: 100%;">
+      <br>
+      <label>ราคา :</label>
+      <input type="" onkeypress="return isNumberKey(event)" id="inputPrice" name="price"  class="inputData" maxlength="30" style="width: 100%;">
+    </div>
+
+    <div style="text-align: right;margin-right: 2%">
+      <div>
+        <button class="button green padd" onclick="addData() " id="buttonAdd" style="">เพิ่ม</button>
+        <!-- </form> -->
+        <button class="button yellow padd" id="buttonEdit" >แก้ไข</button>
+        <button class="button red padd" id="buttonCancel" onclick="location.href = '/Main'">ยกเลิก</button>
+      </div>
+      <p class="demo"></p>
+    </div>
+  </section>
+  <br><br><br><br>
+  
+  <script>
+    function find(){
+    var search = document.getElementById("search").value;
+    var flag = false;
+    if(search == ""){
+        alert("กรุณากรอกข้อมูลค้นหา");
+    }else{
+          flag = true
+            location.href = "productInformation/" + search;       
+    }
+
+    if(flag == false){
+      alert("ไม่พบ Product ที่ค้นหา")
+    }
+    
+}
+
+function addData() {
+var brand = document.getElementById("inputBrand");
+var model = document.getElementById("inputModel");
+var series = document.getElementById("inputSeries");
+var total = document.getElementById("inputTotal");
+var price = document.getElementById("inputPrice");
+
+
+
+if(brand.value != "" && model.value != "" && series.value != "" && total.value != "" && price.value != ""){
+  
+  alert("บันทึกข้อมูลสำเร็จ");
+}else{
+  alert("โปรดกรอกข้อมูลให้ครบถ้วน");
+}
+}
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+function showDetail(id,brand,model,serie,amount,price){
+    document.getElementById("img").src="/pic/carId"+id+".jpg";
+    document.getElementById("inputBrand").value = brand;
+    document.getElementById("inputModel").value = model;
+    document.getElementById("inputSeries").value = serie;
+    document.getElementById("inputTotal").value = amount;       
+    document.getElementById("inputPrice").value = price;    
+}
+
+  </script>
+
+
+</body>
+
+</html>

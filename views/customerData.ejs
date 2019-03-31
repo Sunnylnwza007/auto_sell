@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/mainStyle.css">
+    <link rel="shortcut icon" href="/pic/IMG_1997.PNG" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>จัดการข้อมูลลูกค้า</title>
+    <script src="/script/customer.js"></script>
+</head>
+
+<body>
+
+    <section>
+        <div class="head">
+
+            <div class="inLine absoluteRight">
+                
+            </div>
+            <div class="">
+                <br />
+                <figure class="imgHead inLine">
+                    <img src="/pic/IMG_1997.PNG" class="img150 imgHead inLine">
+                </figure>
+                <h1 class="inLine">จัดการข้อมูลลูกค้า</h1>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="row ; row-customerData" style="width: 90%;">
+        <form action="/customerData/find" method="POST">
+        <div class="column-2-in-row" style="width: 86%">
+            <div class="inputWithIcon">
+                <input type="text" placeholder="ค้นหาชื่อลูกค้า" id = "search" name="search" maxlength="30" style="width:100%;height: 40px;">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div class="column-2-in-row" style="width: 10%;transform: translateY(20%)">
+            <button style="width: 100%" class="button folk green" onclick="find()">ค้นหา</button>
+        </div>
+        </form>
+    </div>
+
+    <div class="row ; row-customerData" style="width: 60%;">
+
+        <table id="t01" style="width:100%;">
+            <tr id="t01">
+                <th id="t01" class="th-top-border" style="padding:20px 20px">ลำดับ</th>
+                <th id="t01" class="th-top-border" style="padding:20px 20px">ชื่อจริง - นามสกุล</th>
+                <th id="t01" class="th-top-border" style="padding:20px 20px">เบอร์ติดต่อ</th>
+                <th id="t01" class="th-top-border" style="padding:20px 20px">รายละเอียด</th>
+            </tr>
+            <% for(var i=0; i < data.length; i++) { %>
+                <tr id="t01">
+                        <td id="t01" name="tno" style="padding:10px 20px"><%= i+1 %></td>
+                        <td id="t01"  name="tname" style="padding:10px 20px"><%= data[i].name %></td>
+                        <td id="t01" name="tphone" style="padding:10px 20px"><%= data[i].tel %></td>
+                        <td id="t01" style="padding:10px 20px; color: blue;"><a onclick="showDetail('<%= data[i].name %>',
+                        '<%= data[i].tel %>',
+                        '<%= data[i].num %>',
+                        '<%= data[i].address %>')"><u>คลิ๊ก</u></a></td>
+                </tr>
+            <% } %>
+
+        </table>
+
+    </div>
+
+    <form method="post" action="/customerData/update">
+
+    <div class="box1 ; center-window" style=" height: 235px;margin-top: 2%">
+
+        <div class="row" style="margin-left: 0px;margin-bottom: 20px;margin-top: 5px">
+            <u style="font-size: 20px">รายละเอียดลูกค้า</u>
+        </div>
+
+        
+        <div class="column-2-in-row" style="width: 49%;  font-size: 18px">
+            ชื่อ-นามสกุล <br>
+            <input type="text"  maxlength="30" id="name" value="<%= data.name %>"> <br>
+            เบอร์โทรติดต่อ <br>
+            <input type="text"  maxlength="10" id="phone" maxlength="12" value="<%= data.tel %>"  onkeypress="isNumber(event)">
+        </div>
+
+        <div class="column-2-in-row" style="width: 49%;  font-size: 18px">
+            บัตรประชาชน <br>
+            <input type="text" class="upper-field" maxlength="13" id="num" maxlength="13" value="<%= data.num %>" onkeypress="isNumber(event)"> <br>
+            ที่อยู่ <br>
+            <input type="text" class="lower-field" maxlength="30" value="<%= data.address%>" id="address">
+        </div>
+    </div>
+
+    <div class="row" style="width: 90%;margin-top: 2%">
+        <u style="font-size:20px;font-weight: bold;">ประวัติรถ</u>
+    </div>
+
+
+    <div class="row ; center-window" style="width: 60%;margin-top: 3%">
+
+        <table id="t01" style="width:100%;">
+            <tr id="t01">
+                <th id="t01" class="th-top-border">ลำดับ</th>
+                <th id="t01" class="th-top-border">ประเภท</th>
+                <th id="t01" class="th-top-border">รุ่นรถ</th>
+                <th id="t01" class="th-top-border">วันที่รับ</th>
+                <th id="t01" class="th-top-border">วันที่ส่ง</th>
+                <th id="t01" class="th-top-border">หมายเหตุ</th>
+            </tr>
+            <tr id="t01">
+                <td id="t01">-</td>
+                <td id="t01">-</td>
+                <td id="t01">-</td>
+                <td id="t01">-</td>
+                <td id="t01">-</td>
+                <td id="t01">-</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="row" style="width: 98%;margin-top: 3%">
+
+        <div class="column-2-in-row">
+        </div>
+        <div class="column-2-in-row" style="float: right;">
+            <button style="width: 25%;margin-left: 6%" class="button blue" >เพิ่ม</button>
+            <button style="width: 25%;margin-left: 6%"class="button green">แก้ไข</button>
+            <button style="width: 25%;margin-left: 6%"class="button red" onclick="location.href = '/Main'">ยกเลิก</button>
+        </div>
+
+        
+    </div>
+
+    </form>
+
+    
+</body>
+
+<script>
+    function find() {
+            var search = document.getElementById("search").value;
+            if (search == "") {
+                alert("กรุณากรอกข้อมูลค้นหา");
+                console.log("test1")
+            } else {
+                console.log("test2")
+                "<% for(var i=0; i < data.length; i++) { %>"
+                var name = "<%= data[i].name %>";
+                var phone = "<%= data[i].tel %>";
+                if (name.includes(search) || phone.includes(search)) {
+                    console.log(name)
+                    console.log(phone)
+                }
+                "<% } %>"
+            }
+
+        }
+</script>
+
+
+</html>

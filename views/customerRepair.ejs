@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/mainStyle.css">
+    <link rel="shortcut icon" href="/pic/IMG_1997.PNG" type="image/x-icon" />
+    <title>บันทึกข้อมูลลูกค้าซ่อมรถ</title>
+    <script>
+        function isNumber(evt){
+            var ch = String.fromCharCode(evt.which);
+
+            if (!(/[0-9]/.test(ch))){
+                evt.preventDefault();
+            }
+        }
+
+        function find() {
+            var search = document.getElementById("search").value;
+            if (search == "") {
+                alert("กรุณากรอกข้อมูลค้นหา");
+                console.log("test1")
+            } else {
+                console.log("test2")
+                "<% for(var i=0; i < data.length; i++) { %>"
+                var name = "<%= data[i].name %>";
+                var phone = "<%= data[i].tel %>";
+                if (name.includes(search) || phone.includes(search)) {
+                    console.log(name)
+                    console.log(phone)
+                }
+                "<% } %>"
+            }
+
+        }
+    </script>
+    <style>
+        .scroll-thead{
+    width: 100%;
+    display: inline-table;
+}
+
+.scroll-tbody-y
+{
+    display: block;
+    overflow-y: scroll;
+}
+
+    </style>
+
+    <title> </title>
+</head>
+
+<body>
+    <section>
+        <div class="head">
+
+            <div class="inLine absoluteRight">
+
+            </div>
+            <div class="">
+                <br />
+                <figure class="img150 imgHead inLine">
+                    <img src="/pic/IMG_1997.PNG" class="img150 imgHead inLine">
+                </figure>
+                <h1 class="inLine">บันทึกข้อมูลลูกค้าซ่อมรถ</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="section2">
+        <div class="parentFix">
+            <div class="child fix-flex ">
+                <div class="title">ลูกค้าเก่า</div>
+                <br>
+                <form action="/customerRepair/find" method="POST">
+                    <div class="in-child">
+                        <input class="inputByArm is-search" type="" placeholder="ค้นหาลูกค้า" id="search" name="search" maxlength="30">
+                        &nbsp; &nbsp;
+                        <button class="button arm green" style="width:15%;padding: 10px 18px"
+                            onclick="find()">ค้นหา</button>
+                    </div>
+                </form>
+
+
+
+                <div class="in-child" style="height:183px; overflow-y: auto">
+                    <table class="table is-information  is-bordered" >
+                        <thead>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>ชื่อจริง - นามสกุล</th>
+                                <th>เบอร์ติดต่อ</th>
+                                <th>รายละเอียด</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i=0; i < data.length; i++) { %>
+                            <tr id="t01">
+                                <td id="t01" name="tno"><%= i+1 %></td>
+                                <td id="t02" name="tname"><%= data[i].name %></td>
+                                <td id="t03" name="tphone"><%= data[i].tel %></td>
+                                <td id="t04"><a> คลิ๊ก </a></td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <br><br>
+
+                <div class="in-child left">
+                    <label>ประเภทการทำธุรกรรม</label>
+                    &nbsp; &nbsp;
+
+                    <input type="text" name="lname" placeholder="ลูกค้าซ่อมรถ" disabled><br>
+
+
+                </div>
+
+                <div class="in-child">
+                    <div class="field-button">
+                        <button class="button arm blue" onclick="location.href = './webCar.html'">ยืนยัน</button>
+                        <button class="button arm red" onclick="location.href = '/Main'">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+
+
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <div class="child fix-flex ">
+                <div class="title">ลูกค้าใหม่ (สมัครสมาชิก)</div>
+
+                <form action="/customerRepair/submit" method="POST">
+                    <div class="form">
+                        <label> ชื่อจริง - นามสกุล </label>
+                        <input class="inputByArm is-form" id="name" type="" name="name" maxlength="30" required>
+                    </div>
+
+
+
+                    <div class="form">
+                        <label> บัตรประชาชน </label>
+                        <input required class="inputByArm is-form" type="" id="num" maxlength="13" name="num" onkeypress="isNumber(event)"/>
+                    </div>
+
+                    <div class="inline-flex">
+                        <div class="form is-fifth">
+                            <label> วัน/ เดือน/ ปีเกิด </label>
+                            <input required class="inputByArm " type="date" id="datepicker" name="birthday"
+                                style="font-size: 16px; width: 100%;height: 50%;margin-top: 0.5rem;" />
+                        </div>
+
+                        <!-- <div class="form is-icon">
+                            <i class="icon"><img src="/pic/calender.png"></i>
+
+                        </div> -->
+
+                        <div class="form is-fifth">
+                            <label> เบอร์ติดต่อ </label>
+                            <input required class="inputByArm is-form" type="" id="phone" maxlength="10" name="tel" onkeypress="isNumber(event)"/>
+                        </div>
+                    </div>
+
+                    <div class="form">
+                        <label> ที่อยู่ </label><br>
+                        <textarea required class="textArea is-form " id="address" name="address"></textarea>
+                        <br>
+                    </div>
+
+
+
+
+                    <div class="in-child">
+                        <div class="field-button">
+                            <button class="button arm blue"  onclick="check()">ยืนยัน</button>
+                </form>
+                <button class="button arm red" onclick="location.href = '/customerRepair'">ล้างข้อมูล</button>
+            </div>
+        </div>
+
+        </div>
+
+        </div>
+    </section>
+</body>
+
+</html>
+<script>
+    function check(){
+  var name = document.getElementById("name");
+  var num = document.getElementById("num");
+  var date = document.getElementById("datepicker");
+  var phone = document.getElementById("phone");
+  var address = document.getElementById("address")
+
+  if(name.value==""){
+    name.style.cssText = "border: 2px solid red;"
+  }else{
+    name.style.cssText = "border: 2px solid #aaa;"
+  }
+
+  if(num.value==""){
+    num.style.cssText = "border: 2px solid red;"
+  }else{
+    num.style.cssText = "border: 2px solid #aaa;"
+  }
+  if(date.value==""){
+    date.style.cssText= "border:1px solid; border-color:red;font-size: 16px; width: 100%;height: 50%;margin-top: 0.5rem"
+  }else{
+    date.style.cssText= "border:1px solid; border-color:#aaa;;font-size: 16px; width: 100%;height: 50%;margin-top: 0.5rem"
+  }
+  if(phone.value==""){
+    phone.style.cssText = "border: 2px solid red;"
+  }else{
+    phone.style.cssText = "border: 2px solid #aaa;"
+  }
+  if(address.value==""){
+    address.style.cssText = "border: 2px solid red;"
+  }else{
+    address.style.cssText = "border: 2px solid #aaa;"
+  }
+
+  if(!name.value=="" && !num.value=="" && !date.value=="" && !phone.value==""&& !address.value==""){
+    alert("เพิ่มข้อมูลเสร็จสิ้น")
+  }else{
+    alert("กรุณากรอกข้อมูลให้ครบถ้วน")
+  }
+}
+</script>
